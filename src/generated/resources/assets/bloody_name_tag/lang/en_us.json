@@ -1,5 +1,11 @@
 {
   "block.bloody_name_tag.blood_cauldron": "Blood Cauldron",
+  "bloody_name_tag.configuration.healthRequired": "Health Required",
+  "bloody_name_tag.configuration.healthRequired.tooltip": "The amount of health required to convert to a Blood Cauldron (Default: 10)",
+  "bloody_name_tag.configuration.healthTaken": "Health Taken",
+  "bloody_name_tag.configuration.healthTaken.tooltip": "The amount of health taken per second while standing in a Water Cauldron above a heat source (Default: 1)",
+  "bloody_name_tag.configuration.ritual": "Ritual",
+  "bloody_name_tag.configuration.ritual.tooltip": "Ritual Settings",
   "bloody_name_tag.tooltip.bound": "§7Bound: \"%s§7\"§r",
   "bloody_name_tag.tooltip.unbound": "§cUnbound§r",
   "item.bloody_name_tag.bloody_name_tag": "Bloody Name Tag",
