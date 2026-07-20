@@ -17,15 +17,15 @@ import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import org.slf4j.Logger;
 
-@Mod(BloodyNametagMod.MOD_ID)
-public class BloodyNametagMod {
+@Mod(BloodyNameTagMod.MOD_ID)
+public class BloodyNameTagMod {
 	public static final String MOD_ID = "bloody_name_tag";
 	public static final Logger LOGGER = LogUtils.getLogger();
 
 	public static final TagKey<Block> HOT_BLOCKS = TagKey.create(Registries.BLOCK, modLoc("hot_blocks"));
 	public static final TagKey<EntityType<?>> SPAWN_BLACKLIST = TagKey.create(Registries.ENTITY_TYPE, modLoc("spawn_blacklist"));
 
-	public BloodyNametagMod(IEventBus eventBus, ModContainer container, Dist dist) {
+	public BloodyNameTagMod(IEventBus eventBus, ModContainer container, Dist dist) {
 		container.registerConfig(ModConfig.Type.COMMON, BloodyConfig.commonSpec);
 
 		ModRegistry.GLM.register(eventBus);

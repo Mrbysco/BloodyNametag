@@ -1,7 +1,7 @@
 package com.mrbysco.bloodynametag.registry;
 
 import com.mojang.serialization.MapCodec;
-import com.mrbysco.bloodynametag.BloodyNametagMod;
+import com.mrbysco.bloodynametag.BloodyNameTagMod;
 import com.mrbysco.bloodynametag.block.BloodCauldronBlock;
 import com.mrbysco.bloodynametag.item.BloodyNameTagItem;
 import com.mrbysco.bloodynametag.loot.BloodyLootModifier;
@@ -21,10 +21,10 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class ModRegistry {
-	public static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> GLM = DeferredRegister.create(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, BloodyNametagMod.MOD_ID);
-	public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(BloodyNametagMod.MOD_ID);
-	public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(BloodyNametagMod.MOD_ID);
-	public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, BloodyNametagMod.MOD_ID);
+	public static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> GLM = DeferredRegister.create(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, BloodyNameTagMod.MOD_ID);
+	public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(BloodyNameTagMod.MOD_ID);
+	public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(BloodyNameTagMod.MOD_ID);
+	public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, BloodyNameTagMod.MOD_ID);
 
 
 	public static final DeferredBlock<BloodCauldronBlock> BLOOD_CAULDRON = BLOCKS.registerBlock("blood_cauldron",

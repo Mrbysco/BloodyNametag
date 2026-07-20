@@ -1,6 +1,6 @@
 package com.mrbysco.bloodynametag.datagen.server;
 
-import com.mrbysco.bloodynametag.BloodyNametagMod;
+import com.mrbysco.bloodynametag.BloodyNameTagMod;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
@@ -10,11 +10,11 @@ import java.util.concurrent.CompletableFuture;
 
 public class BloodyEntityTypeTagsProvider extends EntityTypeTagsProvider {
 	public BloodyEntityTypeTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-		super(output, lookupProvider, BloodyNametagMod.MOD_ID);
+		super(output, lookupProvider, BloodyNameTagMod.MOD_ID);
 	}
 
 	@Override
 	protected void addTags(HolderLookup.Provider registries) {
-		this.tag(BloodyNametagMod.SPAWN_BLACKLIST).addTag(Tags.EntityTypes.BOSSES);
+		this.tag(BloodyNameTagMod.SPAWN_BLACKLIST).addTag(Tags.EntityTypes.BOSSES);
 	}
 }

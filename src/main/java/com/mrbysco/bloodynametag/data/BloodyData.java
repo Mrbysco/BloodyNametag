@@ -3,7 +3,7 @@ package com.mrbysco.bloodynametag.data;
 import com.google.common.collect.Maps;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.mrbysco.bloodynametag.BloodyNametagMod;
+import com.mrbysco.bloodynametag.BloodyNameTagMod;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -16,7 +16,7 @@ import net.minecraft.world.level.storage.SavedDataStorage;
 import java.util.Map;
 
 public class BloodyData extends SavedData {
-	private static final Identifier DATA_NAME = BloodyNametagMod.modLoc("bloody_data");
+	private static final Identifier DATA_NAME = BloodyNameTagMod.modLoc("bloody_data");
 
 	public record HealthCollectedEntry(GlobalPos pos, int value) {
 		static final Codec<HealthCollectedEntry> CODEC = RecordCodecBuilder.create(instance -> instance.group(

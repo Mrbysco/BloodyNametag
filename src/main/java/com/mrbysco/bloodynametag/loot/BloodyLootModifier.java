@@ -4,7 +4,7 @@ import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.mrbysco.bloodynametag.BloodyNametagMod;
+import com.mrbysco.bloodynametag.BloodyNameTagMod;
 import com.mrbysco.bloodynametag.registry.ModRegistry;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.component.DataComponents;
@@ -35,8 +35,8 @@ public class BloodyLootModifier extends LootModifier {
 			return generatedLoot;
 		}
 
-		if (context.getParameter(LootContextParams.THIS_ENTITY) instanceof LivingEntity livingEntity && livingEntity.hasCustomName() && !livingEntity.is(BloodyNametagMod.SPAWN_BLACKLIST)) {
-			try (ProblemReporter.ScopedCollector reporter = new ProblemReporter.ScopedCollector(livingEntity.problemPath(), BloodyNametagMod.LOGGER)) {
+		if (context.getParameter(LootContextParams.THIS_ENTITY) instanceof LivingEntity livingEntity && livingEntity.hasCustomName() && !livingEntity.is(BloodyNameTagMod.SPAWN_BLACKLIST)) {
+			try (ProblemReporter.ScopedCollector reporter = new ProblemReporter.ScopedCollector(livingEntity.problemPath(), BloodyNameTagMod.LOGGER)) {
 				TagValueOutput output = TagValueOutput.createWithContext(reporter, livingEntity.registryAccess());
 				livingEntity.save(output);
 				CompoundTag entityTag = output.buildResult();

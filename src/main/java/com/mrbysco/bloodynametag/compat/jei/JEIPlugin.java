@@ -1,6 +1,6 @@
 package com.mrbysco.bloodynametag.compat.jei;
 
-import com.mrbysco.bloodynametag.BloodyNametagMod;
+import com.mrbysco.bloodynametag.BloodyNameTagMod;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -8,7 +8,7 @@ import net.minecraft.resources.Identifier;
 
 @JeiPlugin
 public class JEIPlugin implements IModPlugin {
-	public static final Identifier PLUGIN_UID = BloodyNametagMod.modLoc("main");
+	public static final Identifier PLUGIN_UID = BloodyNameTagMod.modLoc("main");
 
 	@Override
 	public Identifier getPluginUid() {

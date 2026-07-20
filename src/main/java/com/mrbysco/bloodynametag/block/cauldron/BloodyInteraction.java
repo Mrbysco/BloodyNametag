@@ -1,6 +1,6 @@
 package com.mrbysco.bloodynametag.block.cauldron;
 
-import com.mrbysco.bloodynametag.BloodyNametagMod;
+import com.mrbysco.bloodynametag.BloodyNameTagMod;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -9,7 +9,7 @@ import net.neoforged.neoforge.event.RegisterCauldronInteractionEvent;
 
 @EventBusSubscriber
 public class BloodyInteraction {
-	private static final Identifier BLOOD_ID = BloodyNametagMod.modLoc("blood");
+	private static final Identifier BLOOD_ID = BloodyNameTagMod.modLoc("blood");
 	public static final CauldronInteraction.Dispatcher BLOOD = new CauldronInteraction.Dispatcher();
 
 	@SubscribeEvent

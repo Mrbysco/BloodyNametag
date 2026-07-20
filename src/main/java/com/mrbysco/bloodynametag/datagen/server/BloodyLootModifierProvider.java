@@ -1,6 +1,6 @@
 package com.mrbysco.bloodynametag.datagen.server;
 
-import com.mrbysco.bloodynametag.BloodyNametagMod;
+import com.mrbysco.bloodynametag.BloodyNameTagMod;
 import com.mrbysco.bloodynametag.loot.BloodyLootModifier;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class BloodyLootModifierProvider extends GlobalLootModifierProvider {
 	public BloodyLootModifierProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-		super(packOutput, lookupProvider, BloodyNametagMod.MOD_ID);
+		super(packOutput, lookupProvider, BloodyNameTagMod.MOD_ID);
 	}
 
 	@Override

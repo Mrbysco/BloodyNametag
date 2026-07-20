@@ -1,6 +1,6 @@
 package com.mrbysco.bloodynametag.datagen.server;
 
-import com.mrbysco.bloodynametag.BloodyNametagMod;
+import com.mrbysco.bloodynametag.BloodyNameTagMod;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.ItemTagsProvider;
@@ -9,7 +9,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class BloodyItemTagsProvider extends ItemTagsProvider {
 	public BloodyItemTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-		super(output, lookupProvider, BloodyNametagMod.MOD_ID);
+		super(output, lookupProvider, BloodyNameTagMod.MOD_ID);
 	}
 
 	@Override

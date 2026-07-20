@@ -1,6 +1,6 @@
 package com.mrbysco.bloodynametag.util;
 
-import com.mrbysco.bloodynametag.BloodyNametagMod;
+import com.mrbysco.bloodynametag.BloodyNameTagMod;
 import com.mrbysco.bloodynametag.config.BloodyConfig;
 import com.mrbysco.bloodynametag.data.BloodyData;
 import com.mrbysco.bloodynametag.registry.ModRegistry;
@@ -19,7 +19,7 @@ public class CauldronUtil {
 		if (!state.is(Blocks.WATER_CAULDRON)) return; // Double check
 		if (state.getValue(LayeredCauldronBlock.LEVEL) != 3) return; // Only full water cauldrons
 		BlockState belowState = level.getBlockState(pos.below());
-		if (belowState.is(BloodyNametagMod.HOT_BLOCKS) && entity instanceof Player player) {
+		if (belowState.is(BloodyNameTagMod.HOT_BLOCKS) && entity instanceof Player player) {
 			BloodyData data = BloodyData.get(level);
 			int healthToTake = BloodyConfig.COMMON.healthTaken.getAsInt();
 
