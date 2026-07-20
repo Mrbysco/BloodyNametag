@@ -1,6 +1,7 @@
 package com.mrbysco.bloodynametag.util;
 
 import com.mrbysco.bloodynametag.BloodyNametagMod;
+import com.mrbysco.bloodynametag.config.BloodyConfig;
 import com.mrbysco.bloodynametag.data.BloodyData;
 import com.mrbysco.bloodynametag.registry.ModRegistry;
 import net.minecraft.core.BlockPos;
@@ -20,12 +21,12 @@ public class CauldronUtil {
 		BlockState belowState = level.getBlockState(pos.below());
 		if (belowState.is(BloodyNametagMod.HOT_BLOCKS) && entity instanceof Player player) {
 			BloodyData data = BloodyData.get(level);
-			int healthToTake = 1; //TODO: make configurable
-			int healthRequired = 10;
+			int healthToTake = BloodyConfig.COMMON.healthTaken.getAsInt();
 
 			if (player.hurtServer((ServerLevel) level, entity.damageSources().inFire(), healthToTake)) {
 				GlobalPos globalPos = GlobalPos.of(level.dimension(), pos);
 				data.storeHealth(globalPos, healthToTake);
+				int healthRequired = BloodyConfig.COMMON.healthRequired.getAsInt();
 				if (data.getHealth(globalPos) >= healthRequired) {
 					level.setBlockAndUpdate(pos, ModRegistry.BLOOD_CAULDRON.get().defaultBlockState());
 					data.removeHealth(globalPos);
