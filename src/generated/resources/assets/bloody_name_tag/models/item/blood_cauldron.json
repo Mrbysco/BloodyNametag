@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "bloody_name_tag:item/blood_cauldron"
+  }
+}

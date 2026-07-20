@@ -1,0 +1,7 @@
+{
+  "block.bloody_name_tag.blood_cauldron": "Blood Cauldron",
+  "bloody_name_tag.tooltip.bound": "§7Bound: \"%s§7\"§r",
+  "bloody_name_tag.tooltip.unbound": "§cUnbound§r",
+  "item.bloody_name_tag.bloody_name_tag": "Bloody Name Tag",
+  "itemGroup.bloody_name_tag": "Bloody Name Tag"
+}

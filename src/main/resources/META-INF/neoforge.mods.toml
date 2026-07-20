@@ -1,0 +1,28 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+issueTrackerURL="https://github.com/Mrbysco/BloodyNameTag/issues"
+license="MIT"
+
+[[mods]]
+modId="bloody_name_tag"
+version="${file.jarVersion}"
+displayName="Bloody Name Tag"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/bloody-name-tag"
+authors="Mrbysco"
+description='''
+Adds a Bloody Name Tag that drops from named mobs. Which can be used to respawn the mob.
+'''
+[[dependencies.bloody_name_tag]]
+modId="minecraft"
+type="required"
+versionRange="[26.1.1,)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.bloody_name_tag]]
+modId="neoforge"
+type="required"
+versionRange="[26.1.1.0-alpha,)"
+ordering="NONE"
+side="BOTH"
+[[mixins]]
+config="bloody_name_tag.mixins.json"

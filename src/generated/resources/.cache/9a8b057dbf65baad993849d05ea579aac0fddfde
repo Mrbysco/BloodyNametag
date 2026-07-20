@@ -1,0 +1,7 @@
+// 26.1.2	2026-07-21T00:08:31.4153667	Model Definitions - bloody_name_tag
+fc9d8eb634045686ae381d68a54e687bdb95e88a assets/bloody_name_tag/blockstates/blood_cauldron.json
+b5c17518094e6292aad3531c037e244cd51129a8 assets/bloody_name_tag/items/bloody_name_tag.json
+97fb9ba88717753510f9dcdf93d377bc3de40e79 assets/bloody_name_tag/items/blood_cauldron.json
+e8b3d67642b1a297b1904403a8e155bd81bd0087 assets/bloody_name_tag/models/block/blood_cauldron.json
+391d4480d0058cb3ccec90f83c475463f40745ae assets/bloody_name_tag/models/item/bloody_name_tag.json
+e404fa2eda19c65d3708bac54699f669f2e8eccb assets/bloody_name_tag/models/item/blood_cauldron.json
