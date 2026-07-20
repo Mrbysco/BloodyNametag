@@ -9,7 +9,6 @@ import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.Identifier;
 
 public class BloodyModelProvider extends ModelProvider {
 	public BloodyModelProvider(PackOutput output) {
