@@ -2,6 +2,8 @@ package com.mrbysco.bloodynametag.block;
 
 import com.mojang.serialization.MapCodec;
 import com.mrbysco.bloodynametag.block.cauldron.BloodyInteraction;
+import com.mrbysco.bloodynametag.data.RespawnItems;
+import com.mrbysco.bloodynametag.registry.ModDatamaps;
 import com.mrbysco.bloodynametag.registry.ModRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -14,8 +16,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractCauldronBlock;
@@ -28,6 +30,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BloodCauldronBlock extends AbstractCauldronBlock {
@@ -64,23 +67,26 @@ public class BloodCauldronBlock extends AbstractCauldronBlock {
 		if (entity instanceof ItemEntity itemEntity && itemEntity.getItem().is(ModRegistry.BLOODY_NAME_TAG.get())) {
 			ItemStack stack = itemEntity.getItem();
 			if (stack.has(DataComponents.ENTITY_DATA)) {
-				// TODO: Make the required items configurable somehow
+				var entityData = stack.get(DataComponents.ENTITY_DATA);
+				EntityType<?> type = entityData.type();
+				RespawnItems respawnItems = type.builtInRegistryHolder().getData(ModDatamaps.RESPAWN_ITEMS);
+				if (respawnItems == null) {
+					respawnItems = ModDatamaps.DEFAULT_ITEMS.get();
+				}
 				List<ItemEntity> itemEntities = level.getEntitiesOfClass(ItemEntity.class, new AABB(pos));
-				ItemStack boneStack = null;
-				ItemStack rottenFleshStack = null;
+				List<Item> requiredItems = new ArrayList<>(respawnItems.items());
+				List<ItemStack> requiredStacks = new ArrayList<>();
+
 				for (ItemEntity insideItemEntity : itemEntities) {
 					ItemStack cauldronStack = insideItemEntity.getItem();
-					if (boneStack == null && cauldronStack.is(Items.BONE)) {
-						boneStack = cauldronStack;
-					} else if (rottenFleshStack == null && cauldronStack.is(Items.ROTTEN_FLESH)) {
-						rottenFleshStack = cauldronStack;
+					// Remove item from requiredItems to check if it matches
+					if (requiredItems.remove(cauldronStack.getItem())) {
+						// True means the item was in the list
+						requiredStacks.add(cauldronStack);
 					}
 				}
 
-				if (boneStack != null && rottenFleshStack != null) {
-					// If available continue :)
-					var entityData = stack.get(DataComponents.ENTITY_DATA);
-					EntityType<?> type = entityData.type();
+				if (requiredItems.isEmpty() && !requiredStacks.isEmpty()) {
 					CompoundTag tag = entityData.copyTagWithoutId();
 					Entity respawnedEntity = type.create(level, EntitySpawnReason.EVENT);
 					if (respawnedEntity != null) {
@@ -94,11 +100,12 @@ public class BloodCauldronBlock extends AbstractCauldronBlock {
 						respawnedEntity.setPos(pos.above().getCenter());
 
 						level.addFreshEntity(respawnedEntity);
-						level.broadcastEntityEvent(respawnedEntity, (byte)60);
+						level.broadcastEntityEvent(respawnedEntity, (byte) 60);
 
 						stack.consume(1, null);
-						boneStack.consume(1, null);
-						rottenFleshStack.consume(1, null);
+						for (ItemStack required : requiredStacks) {
+							required.consume(1, null);
+						}
 
 						// Consume blood and return to empty cauldron
 						level.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState());
