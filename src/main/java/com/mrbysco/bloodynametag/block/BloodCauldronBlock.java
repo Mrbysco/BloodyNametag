@@ -64,7 +64,6 @@ public class BloodCauldronBlock extends AbstractCauldronBlock {
 		if (entity instanceof ItemEntity itemEntity && itemEntity.getItem().is(ModRegistry.BLOODY_NAME_TAG.get())) {
 			ItemStack stack = itemEntity.getItem();
 			if (stack.has(DataComponents.ENTITY_DATA)) {
-				// First check if a bone and rotten flesh is available
 				// TODO: Make the required items configurable somehow
 				List<ItemEntity> itemEntities = level.getEntitiesOfClass(ItemEntity.class, new AABB(pos));
 				ItemStack boneStack = null;
