@@ -8,7 +8,7 @@ modId="bloody_name_tag"
 version="${file.jarVersion}"
 displayName="Bloody Name Tag"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/bloody-name-tag"
-authors="Mrbysco"
+authors="Mrbysco, ShyNieke"
 description='''
 Adds a Bloody Name Tag that drops from named mobs. Which can be used to respawn the mob.
 '''

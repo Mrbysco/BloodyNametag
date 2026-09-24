@@ -17,7 +17,8 @@ The revival ritual is as follows:
 * Your named friend should now be summoned back!
 
 ## License ##
-* Bloody Name Tag is licensed under the MIT License
+* **Assets:** All Rights Reserved
+* **Code:** Licensed under the [MIT License](http://opensource.org/licenses/MIT) 
   - (c) 2026 Mrbysco
   - [![License](https://img.shields.io/badge/License-MIT-red.svg?style=flat)](http://opensource.org/licenses/MIT)
 
