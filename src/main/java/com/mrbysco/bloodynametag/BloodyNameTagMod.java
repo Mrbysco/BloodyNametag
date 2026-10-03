@@ -4,7 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.mrbysco.bloodynametag.config.BloodyConfig;
 import com.mrbysco.bloodynametag.registry.ModRegistry;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Block;
@@ -38,7 +38,7 @@ public class BloodyNameTagMod {
 		}
 	}
 
-	public static Identifier modLoc(String path) {
-		return Identifier.fromNamespaceAndPath(MOD_ID, path);
+	public static ResourceLocation modLoc(String path) {
+		return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
 	}
 }

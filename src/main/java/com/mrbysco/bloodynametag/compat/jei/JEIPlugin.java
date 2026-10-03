@@ -4,14 +4,14 @@ import com.mrbysco.bloodynametag.BloodyNameTagMod;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 @JeiPlugin
 public class JEIPlugin implements IModPlugin {
-	public static final Identifier PLUGIN_UID = BloodyNameTagMod.modLoc("main");
+	public static final ResourceLocation PLUGIN_UID = BloodyNameTagMod.modLoc("main");
 
 	@Override
-	public Identifier getPluginUid() {
+	public ResourceLocation getPluginUid() {
 		return PLUGIN_UID;
 	}
 

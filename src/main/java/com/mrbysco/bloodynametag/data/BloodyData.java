@@ -5,18 +5,20 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mrbysco.bloodynametag.BloodyNameTagMod;
 import net.minecraft.core.GlobalPos;
-import net.minecraft.resources.Identifier;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
-import net.minecraft.world.level.saveddata.SavedDataType;
-import net.minecraft.world.level.storage.SavedDataStorage;
+import net.minecraft.world.level.storage.DimensionDataStorage;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class BloodyData extends SavedData {
-	private static final Identifier DATA_NAME = BloodyNameTagMod.modLoc("bloody_data");
+	private static final String DATA_NAME = BloodyNameTagMod.modLoc("bloody_data").toString().replace(":", "_");
 
 	public record HealthCollectedEntry(GlobalPos pos, int value) {
 		static final Codec<HealthCollectedEntry> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -25,10 +27,7 @@ public class BloodyData extends SavedData {
 		).apply(instance, HealthCollectedEntry::new));
 	}
 
-
-	public static final Codec<BloodyData> CODEC = RecordCodecBuilder.create(inst -> inst.group(
-					Codec.unboundedMap(Level.RESOURCE_KEY_CODEC, HealthCollectedEntry.CODEC).fieldOf("healthMap").forGetter(data -> data.healthMap))
-			.apply(inst, BloodyData::new));
+	public static final Codec<Map<ResourceKey<Level>, HealthCollectedEntry>> CODEC = Codec.unboundedMap(Level.RESOURCE_KEY_CODEC, HealthCollectedEntry.CODEC);
 
 	private final Map<ResourceKey<Level>, HealthCollectedEntry> healthMap;
 
@@ -40,8 +39,20 @@ public class BloodyData extends SavedData {
 		this.healthMap = Maps.newHashMap(infoMap);
 	}
 
-	public static SavedDataType<BloodyData> type() {
-		return new SavedDataType<>(DATA_NAME, BloodyData::new, CODEC, null);
+
+	public static BloodyData load(CompoundTag tag, HolderLookup.Provider provider) {
+		Map<ResourceKey<Level>, HealthCollectedEntry> map = new HashMap<>();
+
+		CODEC.parse(NbtOps.INSTANCE, tag.get("health_map")).ifSuccess(map::putAll);
+
+		return new BloodyData(map);
+	}
+
+	@Override
+	public CompoundTag save(CompoundTag compound, HolderLookup.Provider provider) {
+		CODEC.encodeStart(NbtOps.INSTANCE, this.healthMap).ifSuccess(t -> compound.put("health_map", t));
+
+		return compound;
 	}
 
 	public void storeHealth(GlobalPos globalPos, int healthTaken) {
@@ -65,8 +76,7 @@ public class BloodyData extends SavedData {
 		}
 		ServerLevel overworld = level.getServer().getLevel(Level.OVERWORLD);
 
-		assert overworld != null;
-		SavedDataStorage storage = overworld.getDataStorage();
-		return storage.computeIfAbsent(type());
+		DimensionDataStorage storage = overworld.getDataStorage();
+		return storage.computeIfAbsent(new Factory<>(BloodyData::new, BloodyData::load), DATA_NAME);
 	}
 }

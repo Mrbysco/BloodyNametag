@@ -9,12 +9,9 @@ import com.mrbysco.bloodynametag.registry.ModRegistry;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.ProblemReporter;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.TypedEntityData;
-import net.minecraft.world.level.storage.TagValueOutput;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
@@ -25,26 +22,24 @@ public class BloodyLootModifier extends LootModifier {
 	public static final Supplier<MapCodec<BloodyLootModifier>> CODEC = Suppliers.memoize(() ->
 			RecordCodecBuilder.mapCodec(inst -> codecStart(inst).apply(inst, BloodyLootModifier::new)));
 
-	public BloodyLootModifier(LootItemCondition[] conditionsIn, int priority) {
-		super(conditionsIn, priority);
+	public BloodyLootModifier(LootItemCondition[] conditionsIn) {
+		super(conditionsIn);
 	}
 
 	@Override
 	protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
-		if (!context.hasParameter(LootContextParams.THIS_ENTITY)) {
+		if (!context.hasParam(LootContextParams.THIS_ENTITY)) {
 			return generatedLoot;
 		}
 
-		if (context.getParameter(LootContextParams.THIS_ENTITY) instanceof LivingEntity livingEntity && livingEntity.hasCustomName() && !livingEntity.is(BloodyNameTagMod.SPAWN_BLACKLIST)) {
-			try (ProblemReporter.ScopedCollector reporter = new ProblemReporter.ScopedCollector(livingEntity.problemPath(), BloodyNameTagMod.LOGGER)) {
-				TagValueOutput output = TagValueOutput.createWithContext(reporter, livingEntity.registryAccess());
-				livingEntity.save(output);
-				CompoundTag entityTag = output.buildResult();
-				TypedEntityData<EntityType<?>> typedData = TypedEntityData.of(livingEntity.getType(), entityTag);
-				ItemStack nametag = ModRegistry.BLOODY_NAME_TAG.toStack();
-				nametag.set(DataComponents.ENTITY_DATA, typedData);
-				generatedLoot.add(nametag);
-			}
+		if (context.getParam(LootContextParams.THIS_ENTITY) instanceof LivingEntity livingEntity &&
+				livingEntity.hasCustomName() && !livingEntity.getType().is(BloodyNameTagMod.SPAWN_BLACKLIST)) {
+			CompoundTag entityTag = new CompoundTag();
+			livingEntity.save(entityTag);
+			CustomData customData = CustomData.of(entityTag);
+			ItemStack nametag = ModRegistry.BLOODY_NAME_TAG.toStack();
+			nametag.set(DataComponents.ENTITY_DATA, customData);
+			generatedLoot.add(nametag);
 		}
 
 		return generatedLoot;

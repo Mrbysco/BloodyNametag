@@ -30,9 +30,9 @@ public class ModRegistry {
 	public static final DeferredBlock<BloodCauldronBlock> BLOOD_CAULDRON = BLOCKS.registerBlock("blood_cauldron",
 			BloodCauldronBlock::new
 	);
-	public static final DeferredItem<BlockItem> BLOOD_CAULDRON_ITEM = ITEMS.registerSimpleBlockItem(BLOOD_CAULDRON, () -> new Item.Properties().useBlockDescriptionPrefix());
+	public static final DeferredItem<BlockItem> BLOOD_CAULDRON_ITEM = ITEMS.registerSimpleBlockItem(BLOOD_CAULDRON);
 
-	public static final DeferredItem<Item> BLOODY_NAME_TAG = ITEMS.registerItem("bloody_name_tag", BloodyNameTagItem::new, () -> new Item.Properties()
+	public static final DeferredItem<Item> BLOODY_NAME_TAG = ITEMS.registerItem("bloody_name_tag", BloodyNameTagItem::new, new Item.Properties()
 			.stacksTo(1)
 	);
 

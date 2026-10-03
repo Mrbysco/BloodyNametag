@@ -17,7 +17,7 @@ public class BloodyLootModifierProvider extends GlobalLootModifierProvider {
 	@Override
 	protected void start() {
 		this.add("bloody_name_tag", new BloodyLootModifier(
-				new LootItemCondition[0], 1000)
+				new LootItemCondition[0])
 		);
 	}
 }
