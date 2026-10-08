@@ -12,7 +12,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -31,11 +33,18 @@ public class BloodyLootModifier extends LootModifier {
 
 	@Override
 	protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
-		if (!context.hasParameter(LootContextParams.THIS_ENTITY)) {
+		if (!context.getQueriedLootTableId().getPath().startsWith("entities/")) {
 			return generatedLoot;
 		}
 
-		if (context.getParameter(LootContextParams.THIS_ENTITY) instanceof LivingEntity livingEntity && livingEntity.hasCustomName() && !livingEntity.is(BloodyNameTagMod.SPAWN_BLACKLIST)) {
+		if (!context.hasParameter(LootContextParams.THIS_ENTITY) ||
+				!context.hasParameter(LootContextParams.DAMAGE_SOURCE) ||
+				!context.hasParameter(LootContextParams.ORIGIN)) {
+			return generatedLoot;
+		}
+
+		if (context.getParameter(LootContextParams.THIS_ENTITY) instanceof LivingEntity livingEntity &&
+				!(livingEntity instanceof Player) && livingEntity.hasCustomName() && !livingEntity.is(BloodyNameTagMod.SPAWN_BLACKLIST)) {
 			try (ProblemReporter.ScopedCollector reporter = new ProblemReporter.ScopedCollector(livingEntity.problemPath(), BloodyNameTagMod.LOGGER)) {
 				TagValueOutput output = TagValueOutput.createWithContext(reporter, livingEntity.registryAccess());
 				livingEntity.save(output);
