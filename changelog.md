@@ -1,1 +1,1 @@
-* Backport to 1.21.1
+* Add extra safeguard around the loot modifier
