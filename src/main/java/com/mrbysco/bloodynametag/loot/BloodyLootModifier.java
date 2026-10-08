@@ -10,6 +10,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -28,12 +29,16 @@ public class BloodyLootModifier extends LootModifier {
 
 	@Override
 	protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
-		if (!context.hasParam(LootContextParams.THIS_ENTITY)) {
+		if (!context.getQueriedLootTableId().getPath().startsWith("entities/")) {
+			return generatedLoot;
+		}
+
+		if (!context.hasParam(LootContextParams.THIS_ENTITY) || !context.hasParam(LootContextParams.DAMAGE_SOURCE) || !context.hasParam(LootContextParams.ORIGIN)) {
 			return generatedLoot;
 		}
 
 		if (context.getParam(LootContextParams.THIS_ENTITY) instanceof LivingEntity livingEntity &&
-				livingEntity.hasCustomName() && !livingEntity.getType().is(BloodyNameTagMod.SPAWN_BLACKLIST)) {
+				!(livingEntity instanceof Player) && livingEntity.hasCustomName() && !livingEntity.getType().is(BloodyNameTagMod.SPAWN_BLACKLIST)) {
 			CompoundTag entityTag = new CompoundTag();
 			livingEntity.save(entityTag);
 			CustomData customData = CustomData.of(entityTag);
