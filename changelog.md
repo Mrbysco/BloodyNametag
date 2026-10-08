@@ -1,1 +1,1 @@
-* Initial release
+* Add extra safeguard around the loot modifier
